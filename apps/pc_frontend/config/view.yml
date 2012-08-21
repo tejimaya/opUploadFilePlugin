@@ -1,2 +1,0 @@
-default:
-  javascripts: [ /opDropboxPlugin/js/bootstrap-modal.js:{ position : last } , /opDropboxPlugin/js/filedialog.js:{ position : last } ]
