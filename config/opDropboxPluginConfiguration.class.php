@@ -11,5 +11,6 @@ class opDropboxPluginConfiguration extends sfPluginConfiguration
   {
     $event['actionInstance']->getResponse()->addJavascript('/opDropboxPlugin/js/bootstrap-modal.js', 'last');
     $event['actionInstance']->getResponse()->addJavascript('/opDropboxPlugin/js/filedialog.js', 'last');
+    $event['actionInstance']->getResponse()->addJavascript('/opDropboxPlugin/js/jquery.upload.js', 'last');
   }
 }
