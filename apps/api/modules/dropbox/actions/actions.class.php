@@ -81,6 +81,12 @@ class dropboxActions extends opJsonApiActions
   }
   public function executeUpload(sfWebRequest $request)
   {
+    if ('1' === $request->getParameter('forceHtml'))
+    {
+      // workaround for some browsers
+      $this->getResponse()->setContentType('text/html');
+    }
+
     $filename = basename($_FILES['upfile']['name']);
     if(!$filename){
       return $this->renderJSON(array('status' => 'error' ,'path' => $response, 'message' => "null file"));

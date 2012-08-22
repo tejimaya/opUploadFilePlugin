@@ -29,3 +29,10 @@ fBox:
       Default:    10
       Choices:    {1: 5, 2: 10, 3: 15, 4: 20, 5: 25, 6: 30}
 
+dropboxMenu:
+  caption:
+    ja_JP: "Dropboxメニュー"
+  description:
+    ja_JP: "ナビゲーションにDropboxメニューを追加します"
+  component: [dropbox, dropboxMenu]
+

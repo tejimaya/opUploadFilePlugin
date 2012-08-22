@@ -8,4 +8,9 @@ class dropboxComponents extends sfComponents
     $this->member = $this->getUser()->getMember();
   }
 
+  public function executeDropboxMenu()
+  {
+    $this->member = $this->getUser()->getMember();
+  }
+
 }
