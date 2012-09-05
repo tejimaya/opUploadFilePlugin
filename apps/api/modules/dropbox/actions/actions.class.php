@@ -44,6 +44,11 @@ class dropboxActions extends opJsonApiActions
     $dropbox = $this->getDropbox();
     try{
       $response = $dropbox->getMetaData($path);
+
+      foreach ($response['contents'] as &$file)
+      {
+        $file['name'] = preg_replace('#^.+/([^/]+)$#', '$1', $file['path']);
+      }
     }catch(Exception $e){
       return $this->renderJSON(array('status' => 'error','message' => $e));
     }

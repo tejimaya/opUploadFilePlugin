@@ -10,7 +10,7 @@
 
 <script id="dropbox-menuitem-template" type="text/x-jquery-tmpl">
 {{each data.contents}}
-<li class="dropbox-item"><a class="shareLink" href="<?php echo $sf_request->getRelativeUrlRoot() ?>/f/show${path}">${path}</a></li>
+<li class="dropbox-item"><a class="shareLink" href="<?php echo $sf_request->getRelativeUrlRoot() ?>/f/show${path}">${name}</a></li>
 {{/each}}
 </script>
 
