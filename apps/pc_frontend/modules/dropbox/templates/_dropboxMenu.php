@@ -10,7 +10,7 @@
 
 <script id="dropbox-menuitem-template" type="text/x-jquery-tmpl">
 {{each data.contents}}
-<li><a class="shareLink" href="<?php echo url_for('dropbox/index') ?>?path={{html encodeURIComponent(path)}}">${path}</a></li>
+<li class="dropbox-item"><a class="shareLink" href="<?php echo url_for('dropbox/index') ?>?path={{html encodeURIComponent(path)}}">${path}</a></li>
 {{/each}}
 </script>
 
@@ -24,6 +24,8 @@ $('#dropbox-menu .dropdown-toggle').click(function(){
     },
     function(json) {
       if (json.status !== 'success') throw 'dropbox/list failed.';
+
+      $('#dropbox-menuitems .dropbox-item').remove();
 
       var menuitem = $('#dropbox-menuitem-template').tmpl(json);
       $('#dropbox-menuitems').append(menuitem);
