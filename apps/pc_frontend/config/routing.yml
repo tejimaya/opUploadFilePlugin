@@ -1,0 +1,4 @@
+file_show:
+  class: sfRequestRoute
+  url: /f/show/:directory/:filename.:sf_format
+  params: { module: f, action: show }

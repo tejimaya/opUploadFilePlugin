@@ -9,15 +9,22 @@
  */
 class fActions extends sfActions
 {
+  public function getDropbox(){
+    $oauth = new Dropbox_OAuth_PEAR(sfConfig::get('app_opdropboxplugin_consumer'),sfConfig::get('app_opdropboxplugin_consumer_secret'));
+    $oauth->setToken(opConfig::get('opdropboxplugin_oauth_token'),opConfig::get('opdropboxplugin_oauth_token_secret'));
+
+    $dropbox = new Dropbox_API($oauth,'sandbox');
+    return $dropbox;
+  }
 
  /**
   * Executes index action
   *
   * @param sfWebRequest $request A request object
   */
-  public function executeIndex(sfWebRequest $request)
+  public function executeShow(sfWebRequest $request)
   {
-    $path = $request->getParameter("path");
+    $path = sprintf('/%s/%s.%s', $request->getParameter('directory'), $request->getParameter('filename'), $request->getParameter('sf_format'));
     $dropbox = $this->getDropbox();
     try{
       $data = $dropbox->getFile($path);
@@ -25,7 +32,7 @@ class fActions extends sfActions
     {
       return $this->renderText(json_encode(array('status' => 'error','message' => 'Dropbox connection Error' . $path .$e->getMessage())));
     }
-    if(!$data){
+    if(is_null($data)){
       return $this->renderText(json_encode(array('status' => 'error','message' => "Dropbox file download error")));
     }
 
