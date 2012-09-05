@@ -23,7 +23,7 @@
   
 </script>
 
-<form class="well" action="/api.php/f/upload" method="post" enctype="multipart/form-data">
+<form class="well" action="<?php echo app_url_for('api', 'f/upload') ?>" method="post" enctype="multipart/form-data">
   アップロード：<br />
   <input class="fileupload" type="hidden" name="apiKey" value="" />
   <input type="file" name="upfile" size="5" /><br />

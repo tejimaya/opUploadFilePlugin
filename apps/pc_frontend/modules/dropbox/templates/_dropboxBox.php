@@ -4,7 +4,7 @@
 <ul class="nav nav-tabs nav-stacked">
 <li class="active"><a href="#">${title}</a></li>
  {{each data.contents}}
-<li><a class="shareLink" href="/dropbox?path={{html encodeURIComponent(path)}}">${path}</a></li>
+<li><a class="shareLink" href="<?php echo url_for('dropbox/index') ?>?path={{html encodeURIComponent(path)}}">${path}</a></li>
 {{/each}}
 </ul>
 </script>
@@ -14,7 +14,7 @@
   data.apiKey = openpne.apiKey;
   data.path = '/m<?php echo $member->getId(); ?>';
   var $pushHtml;
-  $.get('/api.php/dropbox/list',data,function(json){
+  $.get(openpne.apiBase + 'dropbox/list',data,function(json){
     console.log(json);
     json.title = "マイファイルリスト"
     $pushHtml = $("#fileListTemplate").tmpl(json);
@@ -23,7 +23,7 @@
   
 </script>
 
-<form class="well" action="/api.php/dropbox/upload" method="post" enctype="multipart/form-data">
+<form class="well" action="<?php echo app_url_for('api', 'dropbox/upload') ?>" method="post" enctype="multipart/form-data">
   アップロード：<br />
   <input class="fileupload" type="hidden" name="apiKey" value="" />
   <input type="file" name="upfile" size="5" /><br />

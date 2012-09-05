@@ -1,5 +1,5 @@
 
 <?php echo $message; ?><br>
 
-<a href="/pc_backend.php/opDropboxPlugin/auth">Get OAuth Token</a>
+<?php echo link_to('Get OAuth Token', 'opDropboxPlugin/auth') ?>
 
