@@ -11,7 +11,7 @@
 <script id="dropbox-menuitem-template" type="text/x-jquery-tmpl">
 {{each data.contents}}
 <li class="dropbox-item">
-  <a href="<?php echo $sf_request->getRelativeUrlRoot() ?>/f/show${path}" data-dropbox-path="${path}">
+  <a href="<?php echo $sf_request->getRelativeUrlRoot() ?>/f/show${path}" data-dropbox-path="${path}" data-dropbox-name="${name}">
     <button data-action="delete"><i class="icon-trash"></i></button>
     ${name}
   </a>
@@ -35,6 +35,7 @@ $('#dropbox-menu .dropdown-toggle').click(function(){
       var menuitem = $('#dropbox-menuitem-template').tmpl(json);
 
       $('button', menuitem).click(function(event){
+        if (!confirm($(this.parentNode).data('dropboxName') + ' を削除しますか？')) return;
         $.getJSON(
           openpne.apiBase + 'dropbox/delete',
           {
