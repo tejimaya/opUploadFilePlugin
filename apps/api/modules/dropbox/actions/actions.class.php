@@ -45,6 +45,8 @@ class dropboxActions extends opJsonApiActions
     try{
       $response = $dropbox->getMetaData($path);
 
+      usort($response['contents'], array($this, 'sortFileCallback'));
+
       foreach ($response['contents'] as &$file)
       {
         $file['name'] = preg_replace('#^.+/([^/]+)$#', '$1', $file['path']);
@@ -53,6 +55,20 @@ class dropboxActions extends opJsonApiActions
       return $this->renderJSON(array('status' => 'error','message' => $e));
     }
     return $this->renderJSON(array('status' => 'success','data' => $response));
+  }
+
+  protected function sortFileCallback(array $a, array $b)
+  {
+    $aTime = strtotime($a['modified']);
+    $bTime = strtotime($b['modified']);
+
+    if ($aTime === $bTime)
+    {
+      return 0;
+    }
+
+    // 更新日時の降順にソート
+    return ($aTime < $bTime) ? -1 : 1;
   }
 
   public function executeFiles(sfWebRequest $request)
