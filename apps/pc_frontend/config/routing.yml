@@ -1,4 +1,5 @@
 file_show:
   class: sfRequestRoute
-  url: /f/show/:directory/:filename.:sf_format
+  url: /f/show/:directory/:filename
   params: { module: f, action: show }
+  options: { segment_separators: ['/'] }

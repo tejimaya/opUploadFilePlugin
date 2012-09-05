@@ -24,7 +24,7 @@ class fActions extends sfActions
   */
   public function executeShow(sfWebRequest $request)
   {
-    $path = sprintf('/%s/%s.%s', $request->getParameter('directory'), $request->getParameter('filename'), $request->getParameter('sf_format'));
+    $path = sprintf('/%s/%s', $request->getParameter('directory'), $request->getParameter('filename'));
     $dropbox = $this->getDropbox();
     try{
       $data = $dropbox->getFile($path);
