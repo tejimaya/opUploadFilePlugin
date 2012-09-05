@@ -32,7 +32,7 @@ class dropboxActions extends opJsonApiActions
       }
       $delete_ok = true;
     }
-    if($is_ok){
+    if($delete_ok){
       $response = $dropbox->delete($path);
       return $this->renderJSON(array('status' => 'success','data' => $response));
     }
