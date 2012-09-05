@@ -1,6 +1,6 @@
 <ul class="nav pull-right hide" id="dropbox-menu">
 <li class="dropdown">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropbox<b class="caret"></b></a>
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-folder-open icon-white"></i><b class="caret"></b></a>
   <ul class="dropdown-menu" id="dropbox-menuitems">
     <li><a href="#dropbox-uploadmodal" data-toggle="modal">アップロード</a></li>
     <li class="divider"></li>
