@@ -3,6 +3,12 @@ class fActions extends opJsonApiActions
 {
   public function executeUpload(sfWebRequest $request)
   {
+    if ('1' === $request->getParameter('forceHtml'))
+    {
+      // workaround for some browsers
+      $this->getResponse()->setContentType('text/html');
+    }
+
     $filename = basename($_FILES['upfile']['name']);
     if(!$filename){
       return $this->renderJSON(array('status' => 'error' , 'message' => "null file"));
@@ -27,9 +33,9 @@ class fActions extends opJsonApiActions
     $f = new File();
     $f->setOriginalFilename($_FILES['upfile']['name']);
     $f->setType($_FILES['upfile']['type']);
-    $f->setName($dirname."/".time().$_FILES['upfile']['tmp_name']);
+    $f->setName($dirname."/".time().$_FILES['upfile']['name']);
     $f->setFilesize($_FILES['upfile']['size']);
-    if($stream = fopen($_FILES['upfile']['tmp_name']){
+    if($stream = fopen($_FILES['upfile']['tmp_name'], 'r')){
       $bin = new FileBin();
       $bin->setBin(stream_get_contents($stream));
       $f->setFileBin($bin);
@@ -41,7 +47,7 @@ class fActions extends opJsonApiActions
     }
 
     if($response === true){
-      return $this->renderJSON(array('status' => 'success' , 'message' => "file up success " . $response));
+      return $this->renderJSON(array('status' => 'success' , 'message' => "file up success " . $response, 'file' => $f->toArray(false)));
     }else{
       return $this->renderJSON(array('status' => 'error','message' => "Dropbox file upload error"));
     }
@@ -53,9 +59,10 @@ class fActions extends opJsonApiActions
     $file_list = Doctrine_Query::create()
       ->from('File f')
       ->where('f.name LIKE ?','/m1/%')
+      ->orderBy('f.updated_at DESC')
       ->fetchArray();
      
-    return $this->renderText(print_r($file_list,true));
+    return $this->renderJSON(array('status' => 'success', 'data' => $file_list));
   }
   public function executeFiles(sfWebRequest $request)
   {
@@ -85,4 +92,15 @@ class fActions extends opJsonApiActions
     return $this->renderText($data);
   }
 
+  public function executeDelete(sfWebRequest $request)
+  {
+    $path = $request->getParameter("path");
+    $file = Doctrine::getTable("File")->findOneByName($path);
+
+    $this->forward404Unless($file);
+
+    $file->delete();
+
+    return $this->renderJSON(array('status' => 'success'));
+  }
 }

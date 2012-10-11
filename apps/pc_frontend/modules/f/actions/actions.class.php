@@ -25,18 +25,18 @@ class fActions extends sfActions
   public function executeShow(sfWebRequest $request)
   {
     $path = sprintf('/%s/%s', $request->getParameter('directory'), $request->getParameter('filename'));
-    $dropbox = $this->getDropbox();
-    try{
-      $data = $dropbox->getFile($path);
-    }catch(Exception $e)
-    {
-      return $this->renderText(json_encode(array('status' => 'error','message' => 'Dropbox connection Error' . $path .$e->getMessage())));
-    }
-    if(is_null($data)){
-      return $this->renderText(json_encode(array('status' => 'error','message' => "Dropbox file download error")));
+    $file = Doctrine::getTable("File")->findOneByName($path);
+
+    $this->forward404Unless($file);
+
+    $filebin = $file->getFileBin();
+    $data = $filebin->getBin();
+
+    if(!$data){
+      return $this->renderJSON(array('status' => 'error','message' => "Dropbox file download error"));
     }
 
-    $filename = substr($path,5);
+    $filename = substr($path,strpos($path,"/",1));
 
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $type = $finfo->buffer($data);
