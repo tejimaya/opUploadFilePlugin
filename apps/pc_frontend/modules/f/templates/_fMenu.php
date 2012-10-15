@@ -1,6 +1,5 @@
 <style>
 <!--
-
 #file-uploadmodal .modal-message {
   text-align: center;
   font-size: 120%;
@@ -16,6 +15,9 @@
   width: 30%;
 }
 
+.file-item {
+  width: 240px;
+}
 -->
 </style>
 
@@ -32,16 +34,29 @@
 <script id="file-menuitem-template" type="text/x-jquery-tmpl">
 {{each data}}
 <li class="file-item">
-  <a href="<?php echo $sf_request->getRelativeUrlRoot() ?>/f/show${name}" data-file-path="${name}" data-file-name="${original_filename}">
+  <a href="<?php echo $sf_request->getRelativeUrlRoot(); ?>/f/show${name}" data-file-path="${name}" data-file-name="${original_filename}">
     <button data-action="delete"><i class="icon-trash"></i></button>
     ${original_filename}
+    <input type="text" class="file-item-part" value="<?php echo $sf_request->getRelativeUrlRoot(); ?>/f/show${name}" size="16" />
   </a>
 </li>
 {{/each}}
 </script>
 
 <script>
-$('#file-menu .dropdown-toggle').click(function(){
+function init()
+{
+    $('#file-uploadmodal-body1').show();
+    $('#file-uploadmodal-body2').hide();
+    $('#file-uploadmodal-message').text("ファイルをアップロードします");
+    $('#file-uploadsubmit-loading').hide();
+    $('#file-uploadmodal-upfile').val('');
+    $('#file-uploadsubmit').removeAttr('disabled');
+    $('#file-uploadsubmit').show();
+}
+
+function getUploadedFileList ()
+{
   $.getJSON(
     openpne.apiBase + 'f/list',
     {
@@ -77,12 +92,26 @@ $('#file-menu .dropdown-toggle').click(function(){
       });
 
       $('#file-menuitems').append(menuitem);
+
+      $('.file-item-part').click(function(){
+        $(this).select();
+        return false;
+      });
     }
   );
+}
+
+$('#file-menu .dropdown-toggle').click(function(){
+  if ('' == $('#file-uploadmodal-isuploading').val())
+  {
+    init();
+  }
+  getUploadedFileList();
 });
 
 $(function(){
   $('#file-menu').detach().insertAfter('.nav.pull-right:first').show();
+  getUploadedFileList();
 });
 </script>
 
@@ -95,10 +124,11 @@ $(function(){
     <p class="modal-message" id="file-uploadmodal-message">ファイルをアップロードします</p>
     ファイル: <input name="upfile" type="file" id="file-uploadmodal-upfile">
     <?php echo op_image_tag('ajax-loader.gif', array('class' => 'hide', 'id' => 'file-uploadsubmit-loading')) ?>
+    <input type="hidden" name="isuploading" id="file-uploadmodal-isuploading" value="" />
   </div>
   <div class="modal-body hide" id="file-uploadmodal-body2">
     <p class="modal-message" id="file-uploadmodal-message">アップロードしました</p>
-    <input type="input" id="file-upload-url" />
+    <input type="input" id="file-upload-url" size="80" />
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" id="file-uploadsubmit">
@@ -110,6 +140,7 @@ $(function(){
 <script>
 $('#file-uploadsubmit').click(function(){
   $('#file-uploadmodal-message').text("アップロード中...");
+  $('#file-uploadmodal-isuploading').val('1');
   $('#file-uploadsubmit').attr('disabled', 'disabled');
   $('#file-uploadsubmit-loading').show();
 
@@ -121,19 +152,23 @@ $('#file-uploadsubmit').click(function(){
     },
     function(json) {
       json = JSON.parse(json);
-
       $('#file-uploadsubmit').hide();
 
       if (json.status !== 'success') throw 'f/upload failed.';
 
       var url = '<?php echo $sf_request->getUriPrefix().$sf_request->getRelativeUrlRoot() ?>/f/show' + json['file']['name'];
-
       $('#file-upload-url').val(url);
 
       $('#file-uploadmodal-body1').hide();
       $('#file-uploadmodal-body2').show();
+      $('#file-uploadmodal-isuploading').val('');
     },
     'text'
   );
 });
+$(document).ready(function(){
+  $('#file-upload-url').click(function(){
+    $(this).select();
+  });
+}); 
 </script>

@@ -49,7 +49,7 @@ class fActions extends opJsonApiActions
     if($response === true){
       return $this->renderJSON(array('status' => 'success' , 'message' => "file up success " . $response, 'file' => $f->toArray(false)));
     }else{
-      return $this->renderJSON(array('status' => 'error','message' => "Dropbox file upload error"));
+      return $this->renderJSON(array('status' => 'error','message' => "file upload error"));
     }
 
 
@@ -78,7 +78,7 @@ class fActions extends opJsonApiActions
     $data = $filebin->getBin();
 
     if(!$data){
-      return $this->renderJSON(array('status' => 'error','message' => "Dropbox file download error"));
+      return $this->renderJSON(array('status' => 'error','message' => "file download error"));
     }
 
     $filename = substr($path,strpos($path,"/",1));

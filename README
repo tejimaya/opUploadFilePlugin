@@ -1,30 +1,13 @@
-◆opDropboxPlugin概要
-OpenPNEからDropboxにアクセスするプラグイン。
-Dropbox内のファイルの表示、ダウンロード、アップロード。
+◆opUoloadFilePlugin概要
+ファイルのアップロードを行うプラグイン。
 
 ◆インストール
 /plugins/に設置
 
-
-OAuth などのライブラリが足りないので
-/lib/vendor/Zend 以下のZendframeworkを置き換える。
-
-※開発者環境では、 1.11.11で動作検証した。
-http://framework.zend.com/download/archives/
-
-◆Dropbox設定
-Dropboxアカウントを一つ準備する。
-
 ◆プラグイン設定
-管理画面プラグイン設定から Get Token リンクをクリックし
-Dropboxアプリの許可を与えTokenを取得する。
-連携したDropboxアカウントには"PNE"フォルダが作成される。
-
-※本プラグインはPNEフォルダ以下を読み書きします。
-
 
 ◆操作方法
-管理画面からDropboxガジェット追加
+管理画面からFileUploadメニューガジェット追加
 
 ◆配布方法の注意
 githubでは、app.ymlを提供していない。

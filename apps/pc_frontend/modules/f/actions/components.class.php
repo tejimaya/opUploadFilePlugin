@@ -1,11 +1,8 @@
 <?php
 class fComponents extends sfComponents
 {
-
-
-  public function executeFBox()
+  public function executeFMenu()
   {
     $this->member = $this->getUser()->getMember();
   }
-
 }
