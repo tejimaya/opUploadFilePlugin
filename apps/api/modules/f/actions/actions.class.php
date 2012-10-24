@@ -71,9 +71,10 @@ class fActions extends opJsonApiActions
 
   public function executeList(sfWebRequest $request)
   {
+    $path = $request->path;
     $fileList = Doctrine_Query::create()
       ->from('File f')
-      ->where('f.name LIKE ?', '/m1/%')
+      ->where('f.name LIKE ?', $path.'/%')
       ->orderBy('f.updated_at DESC')
       ->fetchArray();
 
