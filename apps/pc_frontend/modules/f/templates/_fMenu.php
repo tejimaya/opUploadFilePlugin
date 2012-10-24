@@ -37,7 +37,6 @@
   <a href="<?php echo $sf_request->getRelativeUrlRoot(); ?>/f/show${name}" data-file-path="${name}" data-file-name="${original_filename}">
     <button data-action="delete"><i class="icon-trash"></i></button>
     ${original_filename}
-    <input type="text" class="file-item-part" value="<?php echo $sf_request->getRelativeUrlRoot(); ?>/f/show${name}" size="16" />
   </a>
 </li>
 {{/each}}
@@ -97,10 +96,6 @@ function getUploadedFileList ()
       });
 
       $('#file-menuitems').append(menuitem);
-      $('.file-item-part').click(function(){
-        $(this).select();
-        return false;
-      });
     }
   );
 }
