@@ -48,7 +48,7 @@ function init()
 {
     $('#file-uploadmodal-body1').show();
     $('#file-uploadmodal-body2').hide();
-    $('#file-uploadmodal-message').text("ファイルをアップロードします");
+    $('#file-uploadmodal-message').text('ファイルをアップロードします');
     $('#file-uploadsubmit-loading').hide();
     $('#file-uploadmodal-upfile').val('');
     $('#file-uploadsubmit').removeAttr('disabled');
@@ -65,14 +65,15 @@ function getUploadedFileList ()
     },
     function(json) {
       if (json.status !== 'success') throw 'f/list failed.';
-
       $('#file-menuitems .file-item').remove();
-
       var menuitem = $('#file-menuitem-template').tmpl(json);
-
       $('button', menuitem).click(function(event){
-        if (!confirm($(this.parentNode).data('fileName') + ' を削除しますか？')) return;
-        $.getJSON(
+        if (!confirm($(this.parentNode).data('fileName') + ' を削除しますか？'))
+        {
+
+          return;
+        }
+        $.post(
           openpne.apiBase + 'f/delete',
           {
             apiKey: openpne.apiKey,
@@ -83,16 +84,19 @@ function getUploadedFileList ()
               alert('削除しました');
             else
               alert('削除に失敗しました');
-          }
+          },
+          'JSON'
         );
       });
 
       $('a', menuitem).click(function(event){
-        if ($.inArray(event.target.tagName, ['BUTTON', 'I']) !== -1) event.preventDefault();
+        if (-1 !== $.inArray(event.target.tagName, ['BUTTON', 'I']))
+        {
+          event.preventDefault();
+        }
       });
 
       $('#file-menuitems').append(menuitem);
-
       $('.file-item-part').click(function(){
         $(this).select();
         return false;
@@ -139,7 +143,7 @@ $(function(){
 
 <script>
 $('#file-uploadsubmit').click(function(){
-  $('#file-uploadmodal-message').text("アップロード中...");
+  $('#file-uploadmodal-message').text('アップロード中...');
   $('#file-uploadmodal-isuploading').val('1');
   $('#file-uploadsubmit').attr('disabled', 'disabled');
   $('#file-uploadsubmit-loading').show();
@@ -153,12 +157,13 @@ $('#file-uploadsubmit').click(function(){
     function(json) {
       json = JSON.parse(json);
       $('#file-uploadsubmit').hide();
+      if ('success' !== json.status)
+      {
 
-      if (json.status !== 'success') throw 'f/upload failed.';
-
+        throw 'f/upload failed.';
+      }
       var url = '<?php echo $sf_request->getUriPrefix().$sf_request->getRelativeUrlRoot() ?>/f/show' + json['file']['name'];
       $('#file-upload-url').val(url);
-
       $('#file-uploadmodal-body1').hide();
       $('#file-uploadmodal-body2').show();
       $('#file-uploadmodal-isuploading').val('');
