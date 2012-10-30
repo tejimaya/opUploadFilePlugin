@@ -12,17 +12,15 @@ class fActions extends opJsonApiActions
     $filename = basename($_FILES['upfile']['name']);
     if (!$filename)
     {
-
       return $this->renderJSON(array('status' => 'error', 'message' => 'null file'));
     }
-
+    $filename = preg_replace('/\\|\/|\*|:|\?|\"|>|<|undefined|\|/', '-', $filename);
     $communityId = (int)$request->getParameter('community_id');
     if (1 <= (int)$communityId)
     {
       $community = Doctrine::getTable('Community')->find($communityId);
       if (!$community->isPrivilegeBelong($this->getUser()->getMember()->getId()))
       {
-
         return $this->renderJSON(array('status' => 'error', 'message' => 'you are not this community member.'));
       }
       $dirname = '/c'. $communityId;
@@ -35,14 +33,12 @@ class fActions extends opJsonApiActions
     //validate $filepath
     if (!preg_match('/^\/[mc][0-9]+/', $dirname))
     {
-
       return $this->renderJSON(array('status' => 'error', 'message' => 'file path error. '.$dirname));
     }
-
     $f = new File();
-    $f->setOriginalFilename($_FILES['upfile']['name']);
+    $f->setOriginalFilename($filename);
     $f->setType($_FILES['upfile']['type']);
-    $f->setName($dirname.'/'.time().$_FILES['upfile']['name']);
+    $f->setName($dirname.'/'.time().$filename);
     $f->setFilesize($_FILES['upfile']['size']);
     if ($stream = fopen($_FILES['upfile']['tmp_name'], 'r'))
     {
@@ -59,12 +55,10 @@ class fActions extends opJsonApiActions
     }
     if (true === $response)
     {
-
       return $this->renderJSON(array('status' => 'success', 'message' => 'file up success '.$response, 'file' => $f->toArray(false)));
     }
     else
     {
-
       return $this->renderJSON(array('status' => 'error', 'message' => 'file upload error'));
     }
   }
@@ -72,13 +66,38 @@ class fActions extends opJsonApiActions
   public function executeList(sfWebRequest $request)
   {
     $path = $request->path;
-    $fileList = Doctrine_Query::create()
+    $fileLists = Doctrine_Query::create()
       ->from('File f')
       ->where('f.name LIKE ?', $path.'/%')
       ->orderBy('f.updated_at DESC')
       ->fetchArray();
 
-    return $this->renderJSON(array('status' => 'success', 'data' => $fileList));
+    $fLists = array();
+    foreach ($fileLists as $fileList) {
+      foreach ($fileList as $key => $value) {
+        if ('name' == $key)
+        {
+          $separates = explode('.', $value);
+          $cnt = count($separates);
+          $fname = '';
+          $ext = '';
+          if (1 == $cnt)
+          {
+            $fname = $value;
+          }
+          else
+          {
+            $fname = join('', array_slice($separates, 0, $cnt - 1));
+            $ext = '.'.$separates[$cnt - 1];
+          }
+          $fileList['fname'] = $fname;
+          $fileList['ext'] = $ext;
+        }
+      }
+      $fLists[] = $fileList;
+    }
+
+    return $this->renderJSON(array('status' => 'success', 'data' => $fLists));
   }
 
   public function executeFiles(sfWebRequest $request)
@@ -88,14 +107,12 @@ class fActions extends opJsonApiActions
     {
       $path = '/m1/1340943961FILENAME.txt';
     }
-    //TODO アクセス権限管理
 
     $file = Doctrine::getTable('File')->findOneByName($path);
     $filebin = $file->getFileBin();
     $data = $filebin->getBin();
     if (!$data)
     {
-
       return $this->renderJSON(array('status' => 'error', 'message' => 'file download error'));
     }
 

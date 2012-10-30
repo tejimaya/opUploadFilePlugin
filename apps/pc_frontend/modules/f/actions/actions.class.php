@@ -15,19 +15,31 @@ class fActions extends sfActions
   */
   public function executeShow(sfWebRequest $request)
   {
-    $path = sprintf('/%s/%s', $request->getParameter('directory'), $request->getParameter('filename'));
-    $file = Doctrine::getTable('File')->findOneByName($path);
+    $reqFileName = $request->getParameter('filename');
+    $separates = explode('.', $reqFileName);
+    $cnt = count($separates);
+    $fileId = '';
+    $ext = '';
+    if (1 == $cnt)
+    {
+      $fileId = $reqFileName;
+    }
+    else
+    {
+      $fileId = join('', array_slice($separates, 0, $cnt - 1));
+      $ext = '.'.$separates[$cnt - 1];
+    }
+    $file = Doctrine::getTable('File')->find($fileId);
     $this->forward404Unless($file);
     $filebin = $file->getFileBin();
     $data = $filebin->getBin();
-
+    $filename = $file->getName();
     if (!$data)
     {
-
       return $this->renderJSON(array('status' => 'error', 'message' => 'file download error'));
     }
 
-    $filename = substr($path, strpos($path, "/", 1));
+    $filename = substr($filename, strpos($filename, "/", 1));
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $type = $finfo->buffer($data);
     $this->getResponse()->setHttpHeader('Content-Type', $type);

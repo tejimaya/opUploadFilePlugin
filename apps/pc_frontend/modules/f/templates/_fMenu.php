@@ -34,7 +34,7 @@
 <script id="file-menuitem-template" type="text/x-jquery-tmpl">
 {{each data}}
 <li class="file-item">
-  <a href="<?php echo $sf_request->getRelativeUrlRoot(); ?>/f/show${name}" data-file-path="${name}" data-file-name="${original_filename}">
+  <a href="<?php echo $sf_request->getRelativeUrlRoot(); ?>/f/show/${id}${ext}" data-file-path="${name}" data-file-name="${original_filename}">
     <button data-action="delete"><i class="icon-trash"></i></button>
     ${original_filename}
   </a>
@@ -69,7 +69,6 @@ function getUploadedFileList ()
       $('button', menuitem).click(function(event){
         if (!confirm($(this.parentNode).data('fileName') + ' を削除しますか？'))
         {
-
           return;
         }
         $.post(
@@ -94,7 +93,6 @@ function getUploadedFileList ()
           event.preventDefault();
         }
       });
-
       $('#file-menuitems').append(menuitem);
     }
   );
@@ -137,7 +135,46 @@ $(function(){
 </div>
 
 <script>
+function getByte(str)
+{
+  if (str.length == 0)
+  {
+    return 0;
+  }
+  var cnt = 0;
+  var val = '';
+  var strlen = str.length;
+  for (var i = 0; i < strlen; i++)
+  {
+    val = str.charAt(i);
+    val = escape(val);
+    var vallen = val.length;
+    if (vallen  < 4)
+    {
+      cnt = cnt + 1;
+    }
+    else
+    {
+      cnt = cnt + 2;
+    }
+  }
+  return cnt;
+}
+
 $('#file-uploadsubmit').click(function(){
+  // inputcheck
+  var uploadFileName = $('#file-uploadmodal-upfile').val();
+  if ('' == uploadFileName)
+  {
+    alert('アップロードするファイルを選択してください。');
+    return false;
+  }
+  if (50 < getByte(uploadFileName))
+  {
+    alert('アップロードするファイルの名前の長さは50バイト以下にしてください。');
+    return false;
+  }
+
   $('#file-uploadmodal-message').text('アップロード中...');
   $('#file-uploadmodal-isuploading').val('1');
   $('#file-uploadsubmit').attr('disabled', 'disabled');
@@ -154,10 +191,18 @@ $('#file-uploadsubmit').click(function(){
       $('#file-uploadsubmit').hide();
       if ('success' !== json.status)
       {
-
         throw 'f/upload failed.';
       }
-      var url = '<?php echo $sf_request->getUriPrefix().$sf_request->getRelativeUrlRoot() ?>/f/show' + json['file']['name'];
+      var orgFilename = json['file']['original_filename'];
+      var separates = orgFilename.split('.');
+      var len = separates.length;
+      var filename = json['file']['id'];
+      var ext = '';
+      if (1 < len)
+      {
+        ext = '.' + separates[len - 1];
+      }
+      var url = '<?php echo $sf_request->getUriPrefix().$sf_request->getRelativeUrlRoot() ?>/f/show/' + filename + ext;
       $('#file-upload-url').val(url);
       $('#file-uploadmodal-body1').hide();
       $('#file-uploadmodal-body2').show();
