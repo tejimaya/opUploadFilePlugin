@@ -43,6 +43,11 @@ class fActions extends sfActions
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $type = $finfo->buffer($data);
     $this->getResponse()->setHttpHeader('Content-Type', $type);
+    // for ie
+    if (1 === preg_match('/MSIE/', $request->getHttpHeader('User-Agent')))
+    {
+      $filename = mb_convert_encoding($filename, 'sjis-win', 'utf8');
+    }
     $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="'.$filename.'"');
 
     return $this->renderText($data);
