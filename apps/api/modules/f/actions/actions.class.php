@@ -8,7 +8,14 @@ class fActions extends opJsonApiActions
       // workaround for some browsers
       $this->getResponse()->setContentType('text/html');
     }
-
+    if (!$_FILES)
+    {
+      return $this->renderJSON(array('status' => 'error', 'message' => 'null file'));
+    }
+    if (!$_FILES['upfile'])
+    {
+      return $this->renderJSON(array('status' => 'error', 'message' => 'null file'));
+    }
     $filename = basename($_FILES['upfile']['name']);
     if (!$filename)
     {
@@ -29,7 +36,6 @@ class fActions extends opJsonApiActions
     {
       $dirname = '/m'. $this->getUser()->getMember()->getId();
     }
-
     //validate $filepath
     if (!preg_match('/^\/[mc][0-9]+/', $dirname))
     {

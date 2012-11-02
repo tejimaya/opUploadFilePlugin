@@ -63,7 +63,11 @@ function getUploadedFileList ()
       path: '/m<?php echo $member->getId() ?>'
     },
     function(json) {
-      if (json.status !== 'success') throw 'f/list failed.';
+      if ('success' !== json.status)
+      {
+        alert('ファイル一覧の取得時にエラーが発生しました。');
+        return false;
+      }
       $('#file-menuitems .file-item').remove();
       var menuitem = $('#file-menuitem-template').tmpl(json);
       $('button', menuitem).click(function(event){
@@ -78,10 +82,14 @@ function getUploadedFileList ()
             path: $(this.parentNode).data('filePath')
           },
           function(json) {
-            if (json.status === 'success')
+            if ('success' === json.status)
+            {
               alert('削除しました');
+            }
             else
+            {
               alert('削除に失敗しました');
+            }
           },
           'JSON'
         );
@@ -191,7 +199,9 @@ $('#file-uploadsubmit').click(function(){
       $('#file-uploadsubmit').hide();
       if ('success' !== json.status)
       {
-        throw 'f/upload failed.';
+        alert('アップロード時にエラーが発生しました。');
+        $('#file-uploadmodal-isuploading').val('');
+        return false;
       }
       var orgFilename = json['file']['original_filename'];
       var separates = orgFilename.split('.');
