@@ -43,6 +43,7 @@ class fActions extends sfActions
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $type = $finfo->buffer($data);
     $this->getResponse()->setHttpHeader('Content-Type', $type);
+    $this->getResponse()->setHttpHeader('Content-Length', strlen($data));
     // for ie
     if (1 === preg_match('/MSIE/', $request->getHttpHeader('User-Agent')))
     {
