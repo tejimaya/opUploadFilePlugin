@@ -179,7 +179,7 @@ $('#file-uploadsubmit').click(function(){
   }
   if (50 < getByte(uploadFileName))
   {
-    alert('アップロードするファイルの名前の長さは50バイト以下にしてください。');
+    alert('アップロードするファイルの名前の長さは16文字以下にしてください。');
     return false;
   }
 
