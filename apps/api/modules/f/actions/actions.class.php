@@ -21,7 +21,12 @@ class fActions extends opJsonApiActions
     {
       return $this->renderJSON(array('status' => 'error', 'message' => 'null file'));
     }
-    $filename = preg_replace('/\\|\/|\*|:|\?|\"|>|<|undefined|\|/', '-', $filename);
+    $tmpFileName = $request->getParameter('changedname');
+    if ('' == $filename && $filename != $tmpFileName)
+    {
+      $filename = $tmpFileName;
+    }
+    $filename = preg_replace('/\\|\/|\*|:|\?|\&|\'|\"|>|<|undefined|\|/', '-', urldecode($filename));
     $communityId = (int)$request->getParameter('community_id');
     if (1 <= (int)$communityId)
     {

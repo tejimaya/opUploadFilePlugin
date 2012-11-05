@@ -183,6 +183,9 @@ $('#file-uploadsubmit').click(function(){
     return false;
   }
 
+  var path = $('#file-uploadmodal-upfile').val();
+  var tmpFileName = path.replace(/\\/g,'/').replace( /.*\//g, '-' );
+
   $('#file-uploadmodal-message').text('アップロード中...');
   $('#file-uploadmodal-isuploading').val('1');
   $('#file-uploadsubmit').attr('disabled', 'disabled');
@@ -192,7 +195,8 @@ $('#file-uploadsubmit').click(function(){
     openpne.apiBase + 'f/upload',
     {
       apiKey: openpne.apiKey,
-      forceHtml: 1
+      forceHtml: 1,
+      changedname: tmpFileName
     },
     function(json) {
       json = JSON.parse(json);
