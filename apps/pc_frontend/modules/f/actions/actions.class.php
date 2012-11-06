@@ -15,6 +15,8 @@ class fActions extends sfActions
   */
   public function executeShow(sfWebRequest $request)
   {
+    // for apiKey check
+    $memberId = $this->getUser()->getMember();
     $reqFileName = $request->getParameter('filename');
     $separates = explode('.', $reqFileName);
     $cnt = count($separates);

@@ -3,6 +3,8 @@ class fActions extends opJsonApiActions
 {
   public function executeUpload(sfWebRequest $request)
   {
+    // for apiKey check
+    $memberId = $this->getUser()->getMember();
     if ('1' === $request->getParameter('forceHtml'))
     {
       // workaround for some browsers
@@ -93,6 +95,8 @@ class fActions extends opJsonApiActions
 
   public function executeList(sfWebRequest $request)
   {
+    // for apiKey check
+    $memberId = $this->getUser()->getMember();
     $path = $request->path;
     $fileLists = Doctrine_Query::create()
       ->from('File f')
@@ -130,6 +134,8 @@ class fActions extends opJsonApiActions
 
   public function executeFiles(sfWebRequest $request)
   {
+    // for apiKey check
+    $memberId = $this->getUser()->getMember();
     $path = $request->getParameter('path');
     if (!$path)
     {
@@ -155,6 +161,8 @@ class fActions extends opJsonApiActions
 
   public function executeDelete(sfWebRequest $request)
   {
+    // for apiKey check
+    $memberId = $this->getUser()->getMember();
     $path = $request->getParameter('path');
     $file = Doctrine::getTable('File')->findOneByName($path);
     $this->forward404Unless($file);
