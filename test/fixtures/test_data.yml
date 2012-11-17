@@ -70,3 +70,5 @@ File:
     filesize: 1000
     created_at: '2012-11-15 20:00:44'
     updated_at: '2012-11-15 20:00:44'
+    FileBin:
+      bin: "<?php echo str_repeat('a', 1000) ?>"
