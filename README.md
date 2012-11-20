@@ -43,25 +43,19 @@ PCのみの対応となっています。
 アップロードアイコンを表示するためにopSkinUnitedPluginが必要です。  
 https://github.com/tejimaya/opSkinUnitedPlugin を使用してください。  
 
-
-【配布方法の注意】  
-githubでは、app.ymlを提供していない。  
-配布ZIPにはapp.ymlを含める。  
-
-
-**通常インストール**  
-symfonyコマンドを使って、直接DLします  
+**ファイルアップロードインストール**  
+symfonyコマンドを使って、直接DLします。  
 
     cd path/to/OpenPNE
     ./symfony opPlugin:install opUploadFilePlugin
     ./symfony cc
     ./symfony plugin:publish-assets
 
-**ZIPからインストール**  
-https://github.com/tejimaya/opUploadFilePlugin/archive/master.zip  
-からダウンロードして手動でインストールします。  
+**opSkinUnitedPluginインストール**  
+symfonyコマンドを使って、直接DLします。   
 
-    ./symfony opPlugin:migrate 
+    cd path/to/OpenPNE
+    ./symfony opPlugin:install opSkinUnitedPlugin
     ./symfony cc
     ./symfony plugin:publish-assets
 
@@ -71,6 +65,9 @@ https://github.com/tejimaya/opUploadFilePlugin/archive/master.zip
 ・管理画面->デザイン設定->ガジェット設定->サイドバナーガジェット設定->ガジェットを追加->FileUploadメニューを追加。  
 ・MySQLの設定ファイル(my.cnf)の「max allowed packet」とPHPの設定ファイル(php.ini)の「upload_max_filesize」にアップロードファイルの最大サイズを設定。  
 
+【配布方法の注意】  
+githubでは、app.ymlを提供していません。  
+配布ZIPにはapp.ymlを含めます。 
 
 動作環境
 --------
