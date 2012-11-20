@@ -1,42 +1,96 @@
-◆opUploadFilePlugin概要
-ファイルのアップロード・ダウンロードを行うプラグイン。
+opUploadFilePlugin概要
+======================
+ファイルのアップロード・ダウンロード機能を追加します。  
+アップロードしたファイルはSNS内すべてのユーザーが閲覧・ダウンロードすることができます。  
 
-◆インストール
-/plugins/に設置
+PCのみの対応となっています。  
 
-◆プラグイン設定
-・管理画面->プラグイン設定->スキンプラグイン設定にてopSkinUnitedPluginを選択。
-・管理画面->上級者向け設定->JSON API使用設定にて「使用する」を選択。
-・管理画面->デザイン設定->ガジェット設定->サイドバナーガジェット設定->ガジェットを追加->FileUploadメニューを追加。
-・MySQLの設定ファイル(my.cnf)の「max allowed packet」とPHPの設定ファイル(php.ini)の「upload_max_filesize」にアップロードファイルの最大サイズを設定。
 
-◆操作方法
+スクリーンショット
+------
+<a href="http://tejimaya.github.com/opUploadFilePlugin/images/fup_01.png" target=brank>
+<img src="http://tejimaya.github.com/opUploadFilePlugin/images/fup_01.png" height=150/></a>
+<a href="http://tejimaya.github.com/opUploadFilePlugin/images/fup_02.png" target=brank>
+<img src="http://tejimaya.github.com/opUploadFilePlugin/images/fup_02.png" height=150/></a>
+<a href="http://tejimaya.github.com/opUploadFilePlugin/images/fup_03.png" target=brank>
+<img src="http://tejimaya.github.com/opUploadFilePlugin/images/fup_03.png" height=150/></a>
+
+
+操作方法
+----------------
 ・アップロード
-　SNSログイン後、右上に表示されるアイコンをクリックし、アップロードリンクをクリック
-　表示されるダイアログにてアップロードするファイルを選択してアップロードボタンをクリック
-・ダウンロード
-　SNSログイン後、右上に表示されるアイコンをクリックするとアップロード済みファイルの一覧が表示されるのでファイル名をクリックする。
-・ダウンロード用リンクの取得
-　SNSログイン後、右上に表示されるアイコンをクリックするとアップロード済みファイルの一覧が表示されるのでファイル名を右クリックしリンク先URLを取得する。
-　アップロード完了時に表示されるダウンロード用リンクを取得しておく。
+　SNSログイン後、右上に表示されるアイコンをクリックし、アップロードリンクをクリック  
+　表示されるダイアログにてアップロードするファイルを選択してアップロードボタンをクリック  
+・ダウンロード  
+　SNSログイン後、右上に表示されるアイコンをクリックするとアップロード済みファイルの一覧が表示されるのでファイル名をクリックする。  
+・ダウンロード用リンクの取得  
+　SNSログイン後、右上に表示されるアイコンをクリックするとアップロード済みファイルの一覧が表示されるのでファイル名を右クリックしリンク先URLを取得する。  
+　アップロード完了時に表示されるダウンロード用リンクを取得しておく。  
 
-◆制限事項
-・アップロードアイコンを表示するためにopSkinUnitedPluginが必要。
-・ファイルのサイズが0の場合、アップロードはできるがダウンロードができない。
-・ファイルサイズ最大値の設定は以下の二カ所で行う。
-　　MySQLの設定ファイル(my.cnf)の「max allowed packet」
-　　PHPの設定ファイル(php.ini)の「upload_max_filesize」
-・設定されているファイルサイズの最大値を超えるファイルをアップロードできません。
-・ファイル名に以下の文字が含まれている場合、「-(ハイフン)」に変換します。
-　\, /, *, :, ?, &, ', ", >, <, undefined, |
-・ファイル名に4バイト文字等のDBで使用できない文字が含まれている場合、その文字は削除されます。
+【注意事項】  
+・ファイルのサイズが0の場合、アップロードはできるがダウンロードができない。  
+・ファイルサイズ最大値の設定は以下の二カ所で行う。  
+　　MySQLの設定ファイル(my.cnf)の「max allowed packet」  
+　　PHPの設定ファイル(php.ini)の「upload_max_filesize」  
+・設定されているファイルサイズの最大値を超えるファイルをアップロードできません。  
+・ファイル名に以下の文字が含まれている場合、「-(ハイフン)」に変換します。  
+　\, /, *, :, ?, &, ', ", >, <, undefined, |  
+・ファイル名に4バイト文字等のDBで使用できない文字が含まれている場合、その文字は削除されます。  
 
-◆追加予定機能
-・ファイルサイズチェック
-　アップロード時にファイルサイズをチェックして画面に警告を表示する。
-・ファイル名の制限を強化
-　javascriptでevalされても問題のないように。
 
-◆配布方法の注意
-githubでは、app.ymlを提供していない。
-配布ZIPにはapp.ymlを含める。
+インストール方法
+----------------
+アップロードアイコンを表示するためにopSkinUnitedPluginが必要です。  
+https://github.com/tejimaya/opSkinUnitedPlugin を使用してください。  
+
+
+【配布方法の注意】  
+githubでは、app.ymlを提供していない。  
+配布ZIPにはapp.ymlを含める。  
+
+
+**通常インストール**  
+symfonyコマンドを使って、直接DLします  
+
+    cd path/to/OpenPNE
+    ./symfony opPlugin:install opUploadFilePlugin
+    ./symfony cc
+    ./symfony plugin:publish-assets
+
+**ZIPからインストール**  
+https://github.com/tejimaya/opUploadFilePlugin/archive/master.zip  
+からダウンロードして手動でインストールします。  
+
+    ./symfony opPlugin:migrate 
+    ./symfony cc
+    ./symfony plugin:publish-assets
+
+**プラグイン設定**  
+・管理画面->プラグイン設定->スキンプラグイン設定にてopSkinUnitedPluginを選択。  
+・管理画面->上級者向け設定->JSON API使用設定にて「使用する」を選択。  
+・管理画面->デザイン設定->ガジェット設定->サイドバナーガジェット設定->ガジェットを追加->FileUploadメニューを追加。  
+・MySQLの設定ファイル(my.cnf)の「max allowed packet」とPHPの設定ファイル(php.ini)の「upload_max_filesize」にアップロードファイルの最大サイズを設定。  
+
+
+動作環境
+--------
+OpnePNE3.8.2以上  
+opSkinUnitedPluginに依存  
+
+
+更新履歴
+--------
+
+ * 2012/11/20 作成  
+
+
+追加予定機能
+----------
+ ・ファイルサイズチェック 　アップロード時にファイルサイズをチェックして画面に警告を表示する。  
+ ・ファイル名の制限を強化 　javascriptでevalされても問題のないように。  
+
+
+要望・フィードバック
+----------
+
+https://github.com/tejimaya/opUploadFilePlugin/issues
