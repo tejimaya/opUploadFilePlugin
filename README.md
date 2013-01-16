@@ -42,30 +42,30 @@ PCのみの対応となっています。
 ----------------
 アップロードアイコンを表示するためにopSkinUnitedPluginが必要です。  
 https://github.com/tejimaya/opSkinUnitedPlugin を使用してください。  
-
-
+  
+  
 **opSkinUnitedPluginインストール**  
-    cd path/to/OpenPNE/plugins
-    $ git clone git://github.com/tejimaya/opSkinUnitedPlugin.git
-    cd path/to/OpenPNE
-    $ ./symfony cc
-    $ ./symfony plugin:publish-assets
-
+    cd path/to/OpenPNE/plugins  
+    $ git clone git://github.com/tejimaya/opSkinUnitedPlugin.git  
+    cd path/to/OpenPNE  
+    $ ./symfony cc  
+    $ ./symfony plugin:publish-assets  
+  
 **ファイルアップロードインストール**  
-    cd path/to/OpenPNE/plugins
-    $ git clone git://github.com/tejimaya/opUploadFilePlugin.git
-    cd path/to/OpenPNE
-    $ ./symfony cc
-    $ ./symfony plugin:publish-assets
-
-**ご使用中のOpenPNE3本体のバージョンによっては以下の処理が必要になることがあります。**
-    path/to/OpenPNE/lib/action/opJsonApiActions.class.php
-      30行目付近
-        $this->getResponse()->setContentType('application/json');
-      45行目付近
-        $this->getResponse()->setContentType('application/json');
-      上記2ヶ所を削除またはコメントアウトしてください。
-
+    cd path/to/OpenPNE/plugins  
+    $ git clone git://github.com/tejimaya/opUploadFilePlugin.git  
+    cd path/to/OpenPNE  
+    $ ./symfony cc  
+    $ ./symfony plugin:publish-assets  
+  
+**ご使用中のOpenPNE3本体のバージョンによっては以下の処理が必要になることがあります。**  
+    path/to/OpenPNE/lib/action/opJsonApiActions.class.php  
+      30行目付近  
+        $this->getResponse()->setContentType('application/json');  
+      45行目付近  
+        $this->getResponse()->setContentType('application/json');  
+      上記2ヶ所を削除またはコメントアウトしてください。  
+  
 **プラグイン設定**  
 ・管理画面->プラグイン設定->スキンプラグイン設定にてopSkinUnitedPluginを選択。  
 ・管理画面->上級者向け設定->JSON API使用設定にて「使用する」を選択。  
