@@ -43,31 +43,34 @@ PCのみの対応となっています。
 アップロードアイコンを表示するためにopSkinUnitedPluginが必要です。  
 https://github.com/tejimaya/opSkinUnitedPlugin を使用してください。  
 
-**ファイルアップロードインストール**  
-symfonyコマンドを使って、直接DLします。  
-
-    cd path/to/OpenPNE
-    ./symfony opPlugin:install opUploadFilePlugin
-    ./symfony cc
-    ./symfony plugin:publish-assets
 
 **opSkinUnitedPluginインストール**  
-symfonyコマンドを使って、直接DLします。   
-
+    cd path/to/OpenPNE/plugins
+    $ git clone git://github.com/tejimaya/opSkinUnitedPlugin.git
     cd path/to/OpenPNE
-    ./symfony opPlugin:install opSkinUnitedPlugin
-    ./symfony cc
-    ./symfony plugin:publish-assets
+    $ ./symfony cc
+    $ ./symfony plugin:publish-assets
+
+**ファイルアップロードインストール**  
+    cd path/to/OpenPNE/plugins
+    $ git clone git://github.com/tejimaya/opUploadFilePlugin.git
+    cd path/to/OpenPNE
+    $ ./symfony cc
+    $ ./symfony plugin:publish-assets
+
+**ご使用中のOpenPNE3本体のバージョンによっては以下の処理が必要になることがあります。**
+    path/to/OpenPNE/lib/action/opJsonApiActions.class.php
+      30行目付近
+        $this->getResponse()->setContentType('application/json');
+      45行目付近
+        $this->getResponse()->setContentType('application/json');
+      上記2ヶ所を削除またはコメントアウトしてください。
 
 **プラグイン設定**  
 ・管理画面->プラグイン設定->スキンプラグイン設定にてopSkinUnitedPluginを選択。  
 ・管理画面->上級者向け設定->JSON API使用設定にて「使用する」を選択。  
 ・管理画面->デザイン設定->ガジェット設定->サイドバナーガジェット設定->ガジェットを追加->FileUploadメニューを追加。  
 ・MySQLの設定ファイル(my.cnf)の「max allowed packet」とPHPの設定ファイル(php.ini)の「upload_max_filesize」にアップロードファイルの最大サイズを設定。  
-
-【配布方法の注意】  
-githubでは、app.ymlを提供していません。  
-配布ZIPにはapp.ymlを含めます。 
 
 動作環境
 --------
@@ -79,6 +82,7 @@ opSkinUnitedPluginに依存
 --------
 
  * 2012/11/20 作成  
+ * 2013/01/16 更新  インストール手順の修正
 
 
 追加予定機能
