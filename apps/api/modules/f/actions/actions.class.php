@@ -97,7 +97,7 @@ class fActions extends opJsonApiActions
   {
     // for apiKey check
     $memberId = $this->getUser()->getMember();
-    $path = $request->path;
+    $path = $request->getParameter('path');
     $fileLists = Doctrine_Query::create()
       ->from('File f')
       ->where('f.name LIKE ?', $path.'/%')
