@@ -162,8 +162,10 @@ class fActions extends opJsonApiActions
   public function executeDelete(sfWebRequest $request)
   {
     // for apiKey check
-    $memberId = $this->getUser()->getMember();
+    $memberId = $this->getUser()->getMemberId();
     $path = $request->getParameter('path');
+    $pattern = '^(\/m'.$memberId.'\/)+.*';
+    $this->forward404If(!preg_match('/'.$pattern.'/', $path));
     $file = Doctrine::getTable('File')->findOneByName($path);
     $this->forward404Unless($file);
     $file->delete();
