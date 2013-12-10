@@ -97,7 +97,7 @@ class fActions extends opJsonApiActions
   {
     // for apiKey check
     $memberId = $this->getUser()->getMember();
-    $path = $request->path;
+    $path = $request->getParameter('path');
     $fileLists = Doctrine_Query::create()
       ->from('File f')
       ->where('f.name LIKE ?', $path.'/%')
@@ -162,8 +162,10 @@ class fActions extends opJsonApiActions
   public function executeDelete(sfWebRequest $request)
   {
     // for apiKey check
-    $memberId = $this->getUser()->getMember();
+    $memberId = $this->getUser()->getMemberId();
     $path = $request->getParameter('path');
+    $pattern = '^(\/m'.$memberId.'\/)+.*';
+    $this->forward404If(!preg_match('/'.$pattern.'/', $path));
     $file = Doctrine::getTable('File')->findOneByName($path);
     $this->forward404Unless($file);
     $file->delete();
