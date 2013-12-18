@@ -22,6 +22,9 @@
   font-size:20px;
   float:left;
 }
+.modal {
+  top: 50%;
+}
 -->
 </style>
 
