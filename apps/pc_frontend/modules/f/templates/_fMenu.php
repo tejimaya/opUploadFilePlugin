@@ -32,7 +32,7 @@
 <li class="dropdown">
   <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i><i class="fa fa-sort-asc"></i></a>
   <ul class="dropdown-menu" id="file-menuitems">
-    <li><a href="#file-uploadmodal" data-toggle="modal">アップロード</a></li>
+    <li><a href="javascript:void(0)" onclick="$('#file-uploadmodal').modal('show')">アップロード</a></li>
     <li class="divider"></li>
   </ul>
 </li>
