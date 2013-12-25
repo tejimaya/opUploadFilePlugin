@@ -18,14 +18,21 @@
 .file-item {
   width: 240px;
 }
+.fa-folder-open {
+  font-size:20px;
+  float:left;
+}
+.modal {
+  top: 50%;
+}
 -->
 </style>
 
 <ul class="nav pull-right" id="file-menu" style="display: none">
 <li class="dropdown">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-folder-open icon-white"></i><b class="caret"></b></a>
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-folder-open"></i><i class="fa fa-sort-asc"></i></a>
   <ul class="dropdown-menu" id="file-menuitems">
-    <li><a href="#file-uploadmodal" data-toggle="modal">アップロード</a></li>
+    <li><a href="javascript:void(0)" onclick="$('#file-uploadmodal').modal('show')">アップロード</a></li>
     <li class="divider"></li>
   </ul>
 </li>
@@ -35,7 +42,7 @@
 {{each data}}
 <li class="file-item">
   <a href="<?php echo $sf_request->getRelativeUrlRoot(); ?>/f/show/${id}${ext}" data-file-path="${name}" data-file-name="${original_filename}">
-    <button data-action="delete"><i class="icon-trash"></i></button>
+    <button data-action="delete"><i class="fa fa-trash-o"></i></button>
     ${original_filename}
   </a>
 </li>
