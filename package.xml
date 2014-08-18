@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>opUploadFilePlugin</name>
+ <channel>plugins.openpne.jp</channel>
+ <summary>ファイルのアップロード・ダウンロードを行うプラグイン。</summary>
+ <description>SNS登録者が簡単にファイルのアップロードやダウンロードを行うためのプラグインです。
+JSON APIを使用しています。
+opSkinThemePlugin(http://plugins.openpne.jp/package/opSkinThemePlugin)の使用が必須となります。
+
+OpePNE3.8.2以上に対応しています。</description>
+ <lead>
+  <name>kaoru nishizoe</name>
+  <user>nishizoe</user>
+  <email />
+  <active>yes</active>
+ </lead>
+ <date>2014-08-18</date>
+ <time>16:10:31</time>
+ <version>
+  <release>0.9.0</release>
+  <api>0.9.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license>Apache</license>
+ <notes>
+version 0.9.0 alpha release.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="773bae65895df76ef0937b684512ae53" name="apps/api/modules/f/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="ce407ff5715c837d02b1aba7975bf512" name="apps/api/modules/f/templates/arraySuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="221c58a07e5f67c4d9058b921bef16f3" name="apps/pc_frontend/config/routing.yml" role="data" />
+   <file baseinstalldir="/" md5sum="2c4e9bfe58060c39dec7636e35b86c3e" name="apps/pc_frontend/modules/f/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="ac737e87e0b71ff92d24c05cdaf34aac" name="apps/pc_frontend/modules/f/actions/components.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="23a85a877ba78a09b520b19d03c3650c" name="apps/pc_frontend/modules/f/config/security.yml" role="data" />
+   <file baseinstalldir="/" md5sum="83c353664c92f5196ccb63faaa00db1d" name="apps/pc_frontend/modules/f/templates/_fMenu.php" role="data" />
+   <file baseinstalldir="/" md5sum="bd698fcce54dc9234c17acb7004d6855" name="config/opUploadFilePluginConfiguration.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="d384aa0260c1846e2c10bc86fa50bed7" name="config/side_banner_gadget.yml" role="data" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="web/css/dropbox.css" role="data" />
+   <file baseinstalldir="/" md5sum="b9a632551266c6efda6d5eaf6eb0709c" name="web/js/bootstrap-modal.js" role="data" />
+   <file baseinstalldir="/" md5sum="94466a640d5b6830cd9724d071a8e9bf" name="web/js/jquery.upload.js" role="data" />
+   <file baseinstalldir="/" md5sum="617856c3fb2b7177fe7fffa8a1ddd1a1" name="dependencies.yml.sample" role="data" />
+   <file baseinstalldir="/" md5sum="3b83ef96387f14655fc854ddc3c6bd57" name="LICENSE" role="data" />
+   <file baseinstalldir="/" md5sum="1301541ca9322ac192299af5c5e8a2c1" name="README.md" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2.3</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.9.0</release>
+    <api>0.9.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2014-08-18</date>
+   <license>Apache</license>
+   <notes>
+version 0.9.0 alpha release.
+   </notes>
+  </release>
+ </changelog>
+</package>
