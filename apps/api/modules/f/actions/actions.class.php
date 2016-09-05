@@ -154,7 +154,8 @@ class fActions extends opJsonApiActions
     $finfo = new finfo(FILEINFO_MIME_TYPE);
     $type = $finfo->buffer($data);
     $this->getResponse()->setHttpHeader('Content-Type', $type);
-    $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="'.$filename.'"');
+    $encoded_filename = rawurlencode($filename);
+    $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="' . $encoded_filename . '"; filename*=utf-8\'\'' . $encoded_filename);
 
     return $this->renderText($data);
   }
