@@ -31,7 +31,7 @@ https://github.com/tejimaya/opSkinThemePlugin を使用してください。
     $ cd path/to/OpenPNE/plugins  
     $ git clone git://github.com/tejimaya/opSkinThemePlugin.git  
     $ cd opSkinThemePlugin  
-    $ git checkout opSkinThemePlugin-1.0.1  
+    $ git checkout opSkinThemePlugin-1.0.12  
     $ cd path/to/OpenPNE  
     $ ./symfony cc  
     $ ./symfony plugin:publish-assets  
