@@ -151,13 +151,8 @@ class fActions extends opJsonApiActions
     }
 
     $filename = substr($path, strpos($path, '/', 1));
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $type = $finfo->buffer($data);
-    $this->getResponse()->setHttpHeader('Content-Type', $type);
-    $encoded_filename = rawurlencode($filename);
-    $this->getResponse()->setHttpHeader('Content-Disposition', 'attachment; filename="' . $encoded_filename . '"; filename*=utf-8\'\'' . $encoded_filename);
 
-    return $this->renderText($data);
+    return $this->renderText(opToolkit::fileDownload($filename, $data));
   }
 
   public function executeDelete(sfWebRequest $request)
