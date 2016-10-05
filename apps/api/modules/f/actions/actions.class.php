@@ -152,7 +152,7 @@ class fActions extends opJsonApiActions
 
     $filename = substr($path, strpos($path, '/', 1));
 
-    return $this->renderText(opToolkit::fileDownload($filename, $data));
+    opToolkit::fileDownload($filename, $data);
   }
 
   public function executeDelete(sfWebRequest $request)

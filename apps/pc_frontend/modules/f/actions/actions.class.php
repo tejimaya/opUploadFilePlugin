@@ -43,6 +43,6 @@ class fActions extends sfActions
 
     $filename = substr($filename, strpos($filename, "/", 1));
 
-    return $this->renderText(opToolkit::fileDownload($filename, $data));
+    opToolkit::fileDownload($filename, $data);
   }
 }
