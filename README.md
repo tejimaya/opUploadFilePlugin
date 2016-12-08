@@ -31,7 +31,7 @@ https://github.com/tejimaya/opSkinThemePlugin を使用してください。
     $ cd path/to/OpenPNE/plugins  
     $ git clone git://github.com/tejimaya/opSkinThemePlugin.git  
     $ cd opSkinThemePlugin  
-    $ git checkout opSkinThemePlugin-1.0.12  
+    $ git checkout opSkinThemePlugin-1.0.13  
     $ cd path/to/OpenPNE  
     $ ./symfony cc  
     $ ./symfony plugin:publish-assets  
@@ -40,7 +40,7 @@ https://github.com/tejimaya/opSkinThemePlugin を使用してください。
     $ cd path/to/OpenPNE/plugins  
     $ git clone git://github.com/tejimaya/opUploadFilePlugin.git
     $ cd opUploadFilePlugin  
-    $ git checkout opUploadFilePlugin-0.9.0  
+    $ git checkout opUploadFilePlugin-0.9.1  
     $ cd path/to/OpenPNE  
     $ ./symfony cc  
     $ ./symfony plugin:publish-assets  
@@ -68,6 +68,7 @@ opSkinThemePluginに依存
  * 2012/11/20 作成  
  * 2013/01/16 更新  インストール手順の修正
  * 2014/08/18 更新  バージョン0.9.0リリース
+ * 2016/12/08 更新  バージョン0.9.1リリース
 
 
 追加予定機能
