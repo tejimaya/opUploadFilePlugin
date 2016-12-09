@@ -2,16 +2,13 @@ opUploadFilePlugin概要
 ======================
 ファイルのアップロード・ダウンロード機能を追加します。  
 アップロードしたファイルは、ファイルへのリンクを共有することでSNS内すべてのユーザーがダウンロードすることができます。  
+PCのみで利用可能です。  
 
-PCのみの対応となっています。  
-  
-  
 操作方法
 ----------------
-<a href="https://pne.jp/upfile_usage.html" target="_blank">ファイルアップロード機能の使用方法</a>  
+<a href="https://pnejp.wordpress.com/2015/11/11/usage_upload/" target="_blank">ファイルアップロード機能を利用するには</a>  
   
 【注意事項】  
-・ファイルのサイズが0の場合、アップロードはできるがダウンロードができません。  
 ・ファイルサイズ最大値の設定は以下の二カ所で行います。  
 　　MySQLの設定ファイル(my.cnf)の「max allowed packet」  
 　　PHPの設定ファイル(php.ini)の「upload_max_filesize」  
@@ -38,9 +35,9 @@ https://github.com/tejimaya/opSkinThemePlugin を使用してください。
   
 **opUploadFilePluginインストール**  
     $ cd path/to/OpenPNE/plugins  
-    $ git clone git://github.com/tejimaya/opUploadFilePlugin.git
+    $ git clone git://github.com/tejimaya/opUploadFilePlugin.git  
     $ cd opUploadFilePlugin  
-    $ git checkout opUploadFilePlugin-0.9.1  
+    $ git checkout opUploadFilePlugin-0.9.2  
     $ cd path/to/OpenPNE  
     $ ./symfony cc  
     $ ./symfony plugin:publish-assets  
@@ -54,7 +51,7 @@ https://github.com/tejimaya/opSkinThemePlugin を使用してください。
       上記2ヶ所を削除またはコメントアウトしてください。  
   
 **プラグイン設定**  
-・<a href="https://pne.jp/upfile_setting.html" target="_blank">ファイルアップロード機能の設定方法</a>  
+・<a href="https://pnejp.wordpress.com/2015/11/11/setting_uploadfile/" target="_blank">ファイルアップロード機能を設定するには</a>  
 ・MySQLの設定ファイル(my.cnf)の「max allowed packet」とPHPの設定ファイル(php.ini)の「upload_max_filesize」にアップロードファイルの最大サイズを設定。  
   
 動作環境
@@ -66,9 +63,10 @@ opSkinThemePluginに依存
 更新履歴
 --------
  * 2012/11/20 作成  
- * 2013/01/16 更新  インストール手順の修正
- * 2014/08/18 更新  バージョン0.9.0リリース
- * 2016/12/08 更新  バージョン0.9.1リリース
+ * 2013/01/16 更新  インストール手順の修正  
+ * 2014/08/18 更新  バージョン0.9.0リリース  
+ * 2016/12/08 更新  バージョン0.9.1リリース  
+ * 2016/12/09 更新  バージョン0.9.2リリース  
 
 
 追加予定機能
@@ -81,3 +79,4 @@ opSkinThemePluginに依存
 ----------
 
 https://github.com/tejimaya/opUploadFilePlugin/issues
+https://redmine.openpne.jp/projects/plg-uploadfile
