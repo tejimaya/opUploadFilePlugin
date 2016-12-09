@@ -36,10 +36,6 @@ class fActions extends sfActions
     $filebin = $file->getFileBin();
     $data = $filebin->getBin();
     $filename = $file->getName();
-    if (!$data)
-    {
-      return $this->renderJSON(array('status' => 'error', 'message' => 'file download error'));
-    }
 
     $filename = substr($filename, strpos($filename, "/", 1));
 
